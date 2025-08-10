@@ -8,12 +8,12 @@ metadata:
 spec:
   authentication:
     type: tls
-#  authorization:
-#    type: simple
-#    acls:
-#      - operations:
-#          - Read
-#          - Write
-#        resource:
-#          type: topic
-#          name: tls-test-topic
+  authorization:
+    type: simple
+    acls:
+      - operations:
+          - Read
+          - Write
+        resource:
+          type: topic
+          name: test-topic
