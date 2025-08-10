@@ -46,20 +46,20 @@ The goal is to demonstrate skills in infrastructure automation, Kubernetes, and 
 
 ![alt text](diagram.png)
 
-| Component                     | Description                                                                                    |
-|-------------------------------|------------------------------------------------------------------------------------------------|
-| **Cluster Operator**          | Manages the lifecycle of Kafka resources in Kubernetes.                                        |
-| **Entity Operator**           | Handles Kafka topic and user management.                                                       |
-| **Kafka Broker**              | Kafka broker and controller in KRaft mode, stores metadata and serves client requests.         |
-| **Kafka Client**              | Utility pod for producing and consuming messages                                               |
-| **NAT Gateway**               | Allows outbound internet access for resources in private subnets (e.g. downloading images).    |
-| **EKS**                       | Managed Kubernetes control plane provided by AWS to run containerized workloads.               |
-| **EKS Managed Nodes**         | EC2 worker nodes in the EKS cluster.                                                           |
-| **EKS API Endpoint**          | API server endpoint to access the EKS cluster using `kubectl`.                                 |
-| **Public Subnets (3 zones)**  | Subnets in each availability zone with internet access, used for public-facing resources.      |
-| **Private Subnets (3 zones)** | Subnets in each availability zone without direct internet access, used for internal workloads. |
-| **EBS (Elastic Block Store)** | Persistent storage volumes used by Kafka brokers for durable message storage.                  |
-| **Terraform**                 | Used to provision and manage AWS infrastructure and EKS resources declaratively.               |
+| Component                     | Description                                                                                        |
+|-------------------------------|----------------------------------------------------------------------------------------------------|
+| **Cluster Operator**          | Manages the lifecycle of Kafka resources in Kubernetes.                                            |
+| **Entity Operator**           | Handles Kafka topic and user management.                                                           |
+| **Kafka Broker**              | Kafka broker and controller in KRaft mode, stores metadata and serves client requests.             |
+| **Kafka Client**              | Utility pod for producing and consuming messages                                                   |
+| **NAT Gateway**               | Allows outbound internet access for resources in private subnets (e.g. downloading images).        |
+| **EKS**                       | Managed Kubernetes control plane provided by AWS to run containerized workloads.                   |
+| **EKS Managed Nodes**         | EC2 worker nodes in the EKS cluster.                                                               |
+| **EKS API Endpoint**          | API server endpoint to access the EKS cluster using `kubectl`. (currently limited to the local IP) |
+| **Public Subnets (3 zones)**  | Subnets in each availability zone with internet access, used for public-facing resources.          |
+| **Private Subnets (3 zones)** | Subnets in each availability zone without direct internet access, used for internal workloads.     |
+| **EBS (Elastic Block Store)** | Persistent storage volumes used by Kafka brokers for durable message storage.                      |
+| **Terraform**                 | Used to provision and manage AWS infrastructure and EKS resources declaratively.                   |
 
 
 ## Setup Instructions
