@@ -54,7 +54,7 @@ The goal is to demonstrate skills in infrastructure automation, Kubernetes, and 
 | **Kafka Client**              | Utility pod for producing and consuming messages                                               |
 | **NAT Gateway**               | Allows outbound internet access for resources in private subnets (e.g. downloading images).    |
 | **EKS**                       | Managed Kubernetes control plane provided by AWS to run containerized workloads.               |
-| **EKS Managed Nodes**         | Worker nodes in the EKS cluster.                                                               |
+| **EKS Managed Nodes**         | EC2 worker nodes in the EKS cluster.                                                           |
 | **EKS API Endpoint**          | API server endpoint to access the EKS cluster using `kubectl`.                                 |
 | **Public Subnets (3 zones)**  | Subnets in each availability zone with internet access, used for public-facing resources.      |
 | **Private Subnets (3 zones)** | Subnets in each availability zone without direct internet access, used for internal workloads. |
