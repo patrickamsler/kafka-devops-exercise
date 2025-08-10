@@ -1,0 +1,50 @@
+# User-specific files
+.idea/
+
+# IntelliJ IDEA project files
+*.iml
+*.iws
+*.ipr
+
+# Java class files
+*.class
+
+# Log files
+*.log
+
+# Maven and Gradle directories
+/target/
+/out/
+
+# IntelliJ IDEA caches and project-specific data
+.idea/caches/
+/.idea/workspace.xml
+.idea/libraries/
+/.idea/modules.xml
+.idea/runConfigurations/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# .mvn directory (for Maven wrapper)
+.mvn/wrapper/
+
+# .gradle (for Gradle wrapper)
+.gradle/
+
+# JAR files and packaged artifacts
+*.jar
+*.war
+*.ear
+*.db
+
+# Miscellaneous
+*.swp
+
+certs/
+/terraform/.terraform.lock.hcl
+.terraform/
+/terraform/terraform.tfstate
+/terraform/terraform.tfstate.backup
+/terraform/.terraform.tfstate.lock.info

@@ -1,0 +1,19 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaUser
+metadata:
+  name: kafka-user
+  namespace: kafka
+  labels:
+    strimzi.io/cluster: kafka-cluster
+spec:
+  authentication:
+    type: tls
+#  authorization:
+#    type: simple
+#    acls:
+#      - operations:
+#          - Read
+#          - Write
+#        resource:
+#          type: topic
+#          name: tls-test-topic

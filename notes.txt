@@ -1,0 +1,69 @@
+minikube start --memory=4096
+
+kubectl create namespace kafka
+kubectl create -f 'https://strimzi.io/install/latest?namespace=kafka' -n kafka
+
+kubectl apply -f kafka-cluster.yaml
+kubectl apply -f dual-role-nodepool.yaml
+
+# certificates
+$ kubectl get secrets
+
+# create tls test topic
+kubectl apply -f unauthenticated-topic.yaml
+
+# create tls test topic
+kubectl apply -f tls-test-topic.yaml
+
+# create user
+kubectl apply -f kafka-user.yaml
+
+# user secret
+kubectl get secret kafka user
+
+the secret contains:
+- user.crt - the public key of the user
+- user.key - the private key of the user
+
+# show the user secret
+kubectl get secret kafka-user -n kafka -o yaml
+
+# extracting the user key and cert
+kubectl get secret kafka-user -o jsonpath='{.data.user\.crt}' | base64 -d > certs/kafka-user.crt
+kubectl get secret kafka-user -o jsonpath='{.data.user\.key}' | base64 -d > certs/kafka-user.key
+kubectl get secret kafka-cluster-clients-ca-cert -o jsonpath='{.data.ca\.crt}' | base64 -d > certs/cluster-ca.crt
+
+# run debug pod
+kubectl apply -f kafka-client.yaml
+kubectl exec -it kafka-client -- /bin/bash
+
+# produce / consume unauthenticated messages
+kafka-console-producer --bootstrap-server kafka-cluster-kafka-bootstrap:9092 --topic unauthenticated-topic
+kafka-console-consumer --bootstrap-server kafka-cluster-kafka-bootstrap:9092 --topic unauthenticated-topic --from-beginning
+
+# produce / consume mTLS messages
+
+- keystore and truststore password is the same as the user password
+cat /opt/kafka/certs/user.password
+
+keytool -keystore /tmp/user-truststore.jks -alias CARoot -import -file /opt/kafka/ca/ca.crt
+keytool -importkeystore -srckeystore /opt/kafka/certs/user.p12 -srcstoretype pkcs12 -destkeystore /tmp/user-keystore.jks -deststoretype jks
+
+kafka-console-producer --bootstrap-server kafka-cluster-kafka-bootstrap:9093 \
+  --topic tls-test-topic \
+  --producer.config <(echo "security.protocol=SSL
+ssl.truststore.location=/tmp/user-truststore.jks
+ssl.truststore.password=bf91ucPjTtHAMQaud9B2MoRi518x2MTY
+ssl.keystore.location=/tmp/user-keystore.jks
+ssl.keystore.password=bf91ucPjTtHAMQaud9B2MoRi518x2MTY
+ssl.key.password=bf91ucPjTtHAMQaud9B2MoRi518x2MTY")
+
+kafka-console-consumer --bootstrap-server kafka-cluster-kafka-bootstrap:9093 \
+  --topic tls-test-topic \
+  --from-beginning \
+  --consumer.config <(echo "security.protocol=SSL
+ssl.truststore.location=/tmp/user-truststore.jks
+ssl.truststore.password=bf91ucPjTtHAMQaud9B2MoRi518x2MTY
+ssl.keystore.location=/tmp/user-keystore.jks
+ssl.keystore.password=bf91ucPjTtHAMQaud9B2MoRi518x2MTY
+ssl.key.password=bf91ucPjTtHAMQaud9B2MoRi518x2MTY")

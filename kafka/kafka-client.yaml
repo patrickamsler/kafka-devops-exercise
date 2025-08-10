@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kafka-client
+  namespace: kafka
+spec:
+  containers:
+    - name: kafka-client
+      image: confluentinc/cp-kafka:latest
+      command: ["sleep", "infinity"]
+      resources:
+        limits:
+          memory: "512Mi"
+          cpu: "500m"
+      tty: true
+      stdin: true
+      volumeMounts:
+        - name: kafka-user-certs
+          mountPath: /opt/kafka/certs
+          readOnly: true
+        - name: kafka-cluster-cluster-ca-cert
+          mountPath: /opt/kafka/ca
+          readOnly: true
+  volumes:
+    - name: kafka-user-certs
+      secret:
+        secretName: kafka-user
+    - name: kafka-cluster-cluster-ca-cert
+      secret:
+        secretName: kafka-cluster-cluster-ca-cert
