@@ -52,9 +52,9 @@ spec:
       transaction.state.log.min.isr: 2
       default.replication.factor: 3
       min.insync.replicas: 2
-      allow.everyone.if.no.acl.found: true # only for testing
-    authorization:
-      type: simple
+#      allow.everyone.if.no.acl.found: true # only for testing
+#    authorization:
+#      type: simple
   entityOperator:
     topicOperator: { }
     userOperator: { }
