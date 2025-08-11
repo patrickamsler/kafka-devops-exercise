@@ -135,18 +135,18 @@ kafka-console-producer --bootstrap-server kafka-cluster-kafka-bootstrap:9093 \
   --topic test-topic \
   --producer.config <(echo "security.protocol=SSL
 ssl.truststore.location=/tmp/user-truststore.jks
-ssl.truststore.password=l45LzulGBUqbcOUB3zwwesC7GrbLvp84
+ssl.truststore.password=<password>
 ssl.keystore.location=/tmp/user-keystore.jks
-ssl.keystore.password=l45LzulGBUqbcOUB3zwwesC7GrbLvp84
-ssl.key.password=l45LzulGBUqbcOUB3zwwesC7GrbLvp84")
+ssl.keystore.password=<password>
+ssl.key.password=<password>")
 
 kafka-console-consumer --bootstrap-server kafka-cluster-kafka-bootstrap:9093 \
   --topic test-topic \
   --from-beginning \
   --consumer.config <(echo "security.protocol=SSL
 ssl.truststore.location=/tmp/user-truststore.jks
-ssl.truststore.password=l45LzulGBUqbcOUB3zwwesC7GrbLvp84
+ssl.truststore.password=<password>
 ssl.keystore.location=/tmp/user-keystore.jks
-ssl.keystore.password=l45LzulGBUqbcOUB3zwwesC7GrbLvp84
-ssl.key.password=l45LzulGBUqbcOUB3zwwesC7GrbLvp84")
+ssl.keystore.password=<password>
+ssl.key.password=<password>")
 ```
